@@ -1,0 +1,19 @@
+<h2>Поиск заявок</h2>
+  <%= form_tag find_by_attributes_path, method: "get", class: 'form-horizontal', id: "request_form" do %>
+  <%= label_tag :status, "Статус" %>
+  <%= select_tag :status, options_for_select([["Новая"],["В работе"], ["Приостановлена"]]) %>
+  <%= label_tag :id, "Номер заявки" %>
+  <%= text_field_tag :id %>
+  <%= label_tag :comment, "Комментарий" %>
+  <%= text_field_tag :comment %>
+  <%= label_tag :initiator, "Инициатор" %>
+  <%= text_field_tag :initiator %>
+  <%= label_tag :division, "Отдел" %>
+  <%= select_tag :division, options_from_collection_for_select(Department.all, :name, :name) %>
+  <%= label_tag :responsible, "Ответственный" %>
+  <%= select_tag :responsible, options_from_collection_for_select(User.all, :formatted_name, :formatted_name) %>
+  <%= label_tag :status, "SLA" %>
+  <%= select_tag :status, options_for_select([[0],[1],[2],[3],[4]]) %><br/>
+  <br/>
+  <%= submit_tag "Поиск", class: "btn btn-primary" %>
+<% end %>

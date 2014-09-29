@@ -1,0 +1,46 @@
+<p style="margin: 15px 0 20px 20px; display: inline-block; font-weight: bold; font-size: 16px;">Главная, пользователь: <%= current_user.formatted_name %></p>
+<%= form_tag requests_path, method: "get", class: "form_search" do %>
+  <%= text_field_tag :search %>
+  <%= submit_tag "Поиск", name: nil, class: "btn btn-primary" %>
+<% end %>
+<hr style="color: #3498db; background-color: #3498db; height: 5px;">
+<div id="auth_block"></div>
+  <table class="table table-striped">
+    <tr>
+      <th>Номер</th>
+      <th>Статус</th>
+      <th>Заявитель</th>
+      <th>Комментарий</th>
+      <th>Ответственный</th>
+      <th>Подразделение</th>
+      <th>SLA</th>
+      <th>Дата создания</th>
+      <th>Срок исполнения</th>
+      <th colspan="12"></th>
+    <tr>
+    <% @requests.each do |request| %>
+      <% if request.check_deadline_status %>
+        <tr style="color: red">
+      <% else %>
+        <tr>
+      <% end %>
+        <td><%= request.id %></td>
+        <td><%= request.status %></td>
+        <td><%= request.initiator %></td>
+        <td><%= request.comment %></td>
+        <td><%= request.responsible %></td>
+        <td><%= request.division %></td>
+        <td><%= request.sla_number %></td>
+        <td><%= request.created_at.strftime("%d/%m/%Y") %> </td>
+        <td><%= request.deadline.strftime("%d/%m/%Y в %H:%M") %></td>
+        <td><%= link_to 'Открыть', edit_request_path(request) %></td>
+        <td><%= link_to 'Удалить', request_path(request), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+      </tr>
+    <% end %>
+  </table>
+<ul class = "menu-index" >
+  <li><%= link_to "Мои заявки", requests_path(my_requests: true), { class: "btn btn-primary", role: "button" } %></li>
+  <li><%= link_to "Создать заявку", new_request_path, { class: "btn btn-primary", role: "button" } %></li>
+  <li><%= link_to "Поиск",  new_search_path, { class: "btn btn-primary", role: "button" } %></li>
+  <li><%= link_to "Все заявки", requests_path, { class: "btn btn-primary", role: "button" } %></li>
+</ul>

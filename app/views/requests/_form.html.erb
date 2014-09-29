@@ -1,0 +1,24 @@
+<% if @request.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@request.errors.count, "error") %> prohibited
+    this Request from being saved:</h2>
+    <ul>
+      <% @request.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+     </ul>
+  </div>
+  </br>
+<% end %>
+<%= simple_form_for @request,  html: { class: 'form-horizontal', id: "request_form"} do |f| %>
+  <%= f.input :status, collection: ["Новая","В работе","Приостановлена", "На подтверждении", "Закрыта"], label: 'Статус'  %>
+  <%= f.input :initiator, label: 'Инициатор'  %>
+  <%= f.input :department_id, collection: Department.all, value_method: :id, label_method: :name, label: 'Назначить на отдел' %>
+  <%= f.input :user_id, collection: Department.all, as: :grouped_select, group_method: :users, group_label_method: :name, label_method: :formatted_name, label: 'Ответственный' %>
+  <%= f.input :comment, label: 'Комментарий' %>
+  <%= f.input :division, as: :hidden %>
+  <%= f.input :sla_number, as: :hidden %>
+  <%= f.input :responsible, as: :hidden %>
+  <%= f.input :sla_id, collection: Sla.all, value_method: :id, label_method: :sla_value, label: 'SLA' %>
+  <%= f.button :submit, label: 'Создать', class: "btn btn-primary" %>
+<% end %>

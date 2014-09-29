@@ -1,0 +1,10 @@
+<h2>Поиск заявок</h2>
+<%= simple_form_for @search, html: {class: 'form-horizontal', id: "request_form"} do |f| %>
+  <%= f.input :request_id, label: "Номер заявки" %>
+  <%= f.input :keywords, label: "Ключевые слова" %>
+  <%= f.input :division, collection: Department.all, value_method: :name, label_method: :name, label: 'Отдел' %>
+  <%= f.input :responsible, collection: Department.all, as: :grouped_select, group_method: :users, group_label_method: :name, label_method: :formatted_name, value_method: :formatted_name,  label: 'Ответственный' %>
+  <%= f.input :sla, collection: Sla.all, label_method: :sla_value, value_method: :sla_value, label: 'SLA' %>
+  <%= f.input :deadline, selected: Date.today - 1.month , start_year: Date.today.year - 5, order: [:day, :month, :year], label: 'Срок исполнения'  %>
+  <%= f.button :submit, label: 'Искать', class: "btn btn-primary" %>
+ <% end %>

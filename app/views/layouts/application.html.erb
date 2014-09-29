@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EasyHD</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <%= image_tag("logo.png", class: "image_logo")  %>
+    <div id="logo">
+      <ul class="menu-application" style="text-align: right;">
+        <li><%= link_to 'Редактировать профиль', edit_user_registration_path, { class: "btn btn-success" } %></li>
+        <li><%= link_to 'Выйти', destroy_user_session_path, { class: "btn btn-success", method: :delete }  %> </li>
+      </ul>
+      <div id="horizontal_menu">
+        <ul class="hmenu" style="text-align: right;">
+          <li><%= link_to 'Настройки', settings_path %></li>
+        </ul>
+      </div>
+  </div>
+
+    <% if notice || alert %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+    <%= yield %>
+</body>
+</html>

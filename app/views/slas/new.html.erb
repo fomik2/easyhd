@@ -1,0 +1,6 @@
+<h1>Создать SLA</h1>
+<%= simple_form_for :sla, url: slas_path, html: {class: 'form-horizontal' } do |f| %>
+  <%= f.input :sla_value, label: 'Значение'  %>
+  <%= f.input :time_for_deadline, label: 'Кол-во часов' %>
+  <%= f.button :submit, label: 'Создать', class: "btn btn-primary" %>
+<% end %>
