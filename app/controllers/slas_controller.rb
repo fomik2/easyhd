@@ -2,6 +2,7 @@ class SlasController < ApplicationController
   
   def new
     @sla = Sla.new
+    @slas = Sla.all
   end
   
   def create
@@ -12,6 +13,12 @@ class SlasController < ApplicationController
       flash[:notice] = "Не сохранилось"
       redirect_to action: 'new'
     end
+  end
+
+  def destroy
+    @sla = Sla.find(params[:id])
+    @sla.destroy
+    redirect_to new_sla_path
   end
 
 private

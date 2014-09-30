@@ -4,3 +4,16 @@
   <%= f.input :time_for_deadline, label: 'Кол-во часов' %>
   <%= f.button :submit, label: 'Создать', class: "btn btn-primary" %>
 <% end %>
+<table class="table table-striped">
+    <tr>  
+      <th>SLA</th>
+      <th>Кол-во часов</th>
+      <th colspan="3"></th>
+    <tr>
+    <% @slas.each do |sla| %>
+        <td><%= sla.sla_value %></td>
+        <td><%= sla.time_for_deadline %></td>
+        <td><%= link_to 'Удалить', sla_path(sla), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+      </tr>
+    <% end %>
+  </table>
