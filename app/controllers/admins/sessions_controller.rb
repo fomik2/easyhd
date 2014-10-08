@@ -4,6 +4,7 @@ class Admins::SessionsController < Devise::SessionsController
   def new
     respond_to do |format|
       format.js
+      format.html { redirect_to root_path, alert: "Неверное сочетание логина/пароля" }
     end
   end
   

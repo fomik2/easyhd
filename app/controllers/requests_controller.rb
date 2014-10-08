@@ -44,7 +44,7 @@ class RequestsController < ApplicationController
     if params[:my_requests]
       @requests = current_user.requests.all
     else
-      @requests = Request.find_requests(params[:search])
+      @requests = Request.find_requests(params[:search]).order(:id)
     end
   end
 
